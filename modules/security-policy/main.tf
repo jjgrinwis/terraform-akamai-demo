@@ -8,10 +8,8 @@ terraform {
   }
 }
 
-# we switched our default credential to betajam
-
 # using the betajam account to update existing security configuration
-# if switching between credentials make sure to add this provider config
+# if switching between credentials make sure to add this provider config otherwise lookup will fail
 provider "akamai" {
   edgerc         = "~/.edgerc"
   config_section = "betajam"

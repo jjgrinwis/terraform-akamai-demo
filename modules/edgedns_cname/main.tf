@@ -1,4 +1,4 @@
-# our terraform module to create TXT records for secure by default
+# our terraform module to create CNAME records for secure by default
 # zone should already be active!
 terraform {
   required_providers {
@@ -9,13 +9,11 @@ terraform {
   }
 }
 
-# for cloud usage these vars have been defined in terraform cloud as a set
-# Configure the Akamai Provider to use separete EdgeDNS credentials
+# configure the Akamai Provider to use different credentials for EdgeDNS
 provider "akamai" {
   edgerc         = "~/.edgerc"
   config_section = "dns"
 }
-
 
 # using for_each with our pre-configured hostnames list
 # we need for_each with unique key as using count() with just index number can cause issues as order of the list might be different

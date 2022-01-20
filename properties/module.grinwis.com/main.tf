@@ -19,7 +19,7 @@ provider "akamai" {
 # now create our property using our module with input vars
 # this module will only create the property but won't active it.
 module "property" {
-  source = "../modules/services/property"
+  source = "../../modules/property"
 
   # if managed from ACC the only initial version will be created from template
   # you can use a tfvars variable or use '-var="acc_managed=false"' to overwrite
@@ -43,7 +43,7 @@ locals {
 # providers cannot be configured within modules using count, for_each or depends_on
 # as we have separate credentials/provider config for EdgeDNS, do the for_each check in the edgens_cname module
 module "edgedns_cname" {
-  source = "../modules/services/edgedns_cname"
+  source = "../../modules/edgedns_cname"
 
   # for_each needs a known lists, it can't use a dynamic list/amo that's still to be defined. 
   # so we're feeding a fixed lists with our hostnames and going to use that a key into our dv_records map
@@ -73,7 +73,7 @@ resource "time_sleep" "security_selected_hostnames_propagation" {
 }
 
 module "security_policy" {
-  source = "../modules/services/security-policy"
+  source = "../../modules/security-policy"
 
   # our active security configuration
   security_configuration = "WAF Security File"
