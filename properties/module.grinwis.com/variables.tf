@@ -15,7 +15,7 @@ variable "product_name" {
 
 # IPV4, IPV6_PERFORMANCE or IPV6_COMPLIANCE 
 variable "ip_behavior" {
-  description = "IPv4 and IPv6 by default, if only you want to use IPv4 choose IPV4"
+  description = "IPv4 and IPv6 by default, if you only want to use IPv4 choose IPV4"
   type        = string
   default     = "IPV6_COMPLIANCE"
 }
