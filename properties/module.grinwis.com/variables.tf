@@ -51,6 +51,10 @@ variable "domain_suffix" {
 variable "origin" {
   description = "The origin hostname"
   type        = string
+  validation {
+    condition     = length(var.origin) > 5
+    error_message = "Are you sure you have entered the correct origin hostname?"
+  }
 }
 
 variable "hostnames" {
@@ -80,4 +84,13 @@ variable "email" {
   type        = string
 }
 
+# security related information
+variable "security_configuration" {
+  description = "The active security configuration of the security policy you want to use."
+  type        = string
+}
 
+variable "security_policy" {
+  description = "The active security policy the hostnames should be attached to."
+  type        = string
+}

@@ -76,10 +76,10 @@ module "security_policy" {
   source = "../../modules/security-policy"
 
   # our active security configuration
-  security_configuration = "WAF Security File"
+  security_configuration = var.security_configuration
 
   # the security policy in our security configuration
-  security_policy = "Monitoring Only Security Policy"
+  security_policy = var.security_policy
 
   # hostnames to add to our security configuration
   hostnames = var.hostnames
