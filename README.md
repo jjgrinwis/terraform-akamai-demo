@@ -5,7 +5,7 @@ You can select our new Secure By Default(SBD) option to automatically create Let
 
 You can manage your rules via Akamai Control Center (ACC) or from the template directory. The initial version will always be deployed from the template directory using some pre-defind vars. Hostnames can just be added or removed from to the var.hostnames[] list and Terraform will do the heavy lifting of removing/adding hostnames.
 
-In this example we're automatically adding the DV CNAME records to Akamai EdgeDNS but you add them manually or use other Terraform Provider.
+In this example we're automatically adding the DV CNAME records to Akamai EdgeDNS but you add them manually or use any other Terraform Provider.
 When the new property is activated on Akamai staging it will being added to a security policy part of an active security configuration.
 
 Below a visual of the plan that's going to be implemented: 
