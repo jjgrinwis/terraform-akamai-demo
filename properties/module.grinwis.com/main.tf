@@ -33,19 +33,19 @@ module "property" {
 }
 
 locals {
-  # covert the list of maps to a map of maps with entry.hostname as key of the map
+  # convert the list of maps to a map of maps with entry.hostname as key of the map
   # keys in the map are the same as entries in var.hostnames[] 
   dv_records = { for entry in module.property.dv_keys : entry.hostname => entry }
 }
 
-# if you your DNS provider has a Terraform module just use it here to create the CNAME records
+# if your DNS provider has a Terraform module just use it here to create the CNAME records
 # let's create our DV records using a module with with different credentials
 # providers cannot be configured within modules using count, for_each or depends_on
 # as we have separate credentials/provider config for EdgeDNS, do the for_each check in the edgens_cname module
 module "edgedns_cname" {
   source = "../../modules/edgedns_cname"
 
-  # for_each needs a known lists, it can't use a dynamic list/amo that's still to be defined. 
+  # for_each needs a known lists, it can't use a dynamic list/map that's still to be defined. 
   # so we're feeding a fixed lists with our hostnames and going to use that a key into our dv_records map
   hostnames  = distinct(var.hostnames)
   dv_records = local.dv_records
@@ -61,12 +61,13 @@ resource "akamai_property_activation" "aka_staging" {
 }
 
 resource "time_sleep" "security_selected_hostnames_propagation" {
-  # it takes some time until new hostname is visable in the security configuration
+  # it takes some time until the new hostname is visable in the security configuration
   # so let's wait a couple of seconds after the aka_staging has been created
   create_duration = "10s"
 
   # creating a trigger on something we only know after the apply
-  # we need to feed this depency graph into our security module as it will try to add hostname will not active
+  # we need to feed this depency graph into our security module 
+  # as it will try to add hostname to the security configuration while not active yet
   triggers = {
     aka_staging = resource.akamai_property_activation.aka_staging.version
   }
